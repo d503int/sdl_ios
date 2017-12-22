@@ -11,7 +11,7 @@ s.source       = { :git => "https://github.com/smartdevicelink/sdl_ios.git", :ta
 s.dependency     'BiSON', '~> 1.0'
 s.source_files = "SmartDeviceLink/*.{h,m}"
 s.requires_arc = true
-s.resource_bundles = { 'SmartDeviceLink' => ['SmartDeviceLink/Assets/**/*', 'SmartDeviceLink/iOS 7 Assets/*'] }
+s.resources = ['SmartDeviceLink/Assets/**/*', 'SmartDeviceLink/iOS 7 Assets/*']
 s.public_header_files = [
 'SmartDeviceLink/SmartDeviceLink.h',
 'SmartDeviceLink/SDLJingle.h',
