@@ -1,13 +1,13 @@
 Pod::Spec.new do |s|
 
 s.name         = "SmartDeviceLink"
-s.version      = "5.0.0"
+s.version      = "5.1.0"
 s.summary      = "Connect your app with cars!"
 s.homepage     = "https://github.com/smartdevicelink/SmartDeviceLink-iOS"
 s.license      = { :type => "New BSD", :file => "LICENSE" }
 s.author       = { "SmartDeviceLink Team" => "developer@smartdevicelink.com" }
 s.platform     = :ios, "8.0"
-s.dependency     'BiSON', '~> 1.0'
+s.dependency     'BiSON', '~> 1.1.1'
 s.source       = { :git => "https://github.com/smartdevicelink/sdl_ios.git", :tag => s.version.to_s }
 s.requires_arc = true
 s.resource_bundles = { 'SmartDeviceLink' => ['SmartDeviceLink/Assets/**/*'] }
@@ -38,6 +38,9 @@ ss.public_header_files = [
 'SmartDeviceLink/SDLArtwork.h',
 'SmartDeviceLink/SDLAudioPassThruCapabilities.h',
 'SmartDeviceLink/SDLAudioStreamingState.h',
+'SmartDeviceLink/SDLAudioStreamManager.h',
+'SmartDeviceLink/SDLAudioStreamManagerDelegate.h',
+'SmartDeviceLink/SDLStreamingAudioManagerType.h',
 'SmartDeviceLink/SDLAudioType.h',
 'SmartDeviceLink/SDLBeltStatus.h',
 'SmartDeviceLink/SDLBitsPerSample.h',
@@ -48,6 +51,7 @@ ss.public_header_files = [
 'SmartDeviceLink/SDLButtonPress.h',
 'SmartDeviceLink/SDLButtonPressMode.h',
 'SmartDeviceLink/SDLCarModeStatus.h',
+'SmartDeviceLink/SDLCarWindowViewController.h',
 'SmartDeviceLink/SDLChangeRegistration.h',
 'SmartDeviceLink/SDLChangeRegistrationResponse.h',
 'SmartDeviceLink/SDLCharacterSet.h',
