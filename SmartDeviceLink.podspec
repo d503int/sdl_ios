@@ -12,7 +12,7 @@ s.source       = { :git => "https://github.com/smartdevicelink/sdl_ios.git", :ta
 s.requires_arc = true
 puts "#{ENV['PROJECT_PATH']}"
 FileUtils.cp_r "SmartDeviceLink/Assets/SDLAssets.xcassets", "#{ENV['PROJECT_PATH']}/Resources"
-s.resources = 'SmartDeviceLink/Assets/**/*.{storyboard,strings,imageset}'
+s.resources = 'SmartDeviceLink/Assets/**/*.{storyboard,strings,png}'
 
 s.default_subspec = 'Default'
 
