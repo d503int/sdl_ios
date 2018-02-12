@@ -11,7 +11,6 @@ s.dependency     'BiSON', '~> 1.1.1'
 s.source       = { :git => "https://github.com/smartdevicelink/sdl_ios.git", :tag => s.version.to_s }
 s.requires_arc = true
 puts "#{ENV['PROJECT_PATH']}"
-FileUtils.cp_r "SmartDeviceLink/Assets/SDLAssets.xcassets", "#{ENV['PROJECT_PATH']}/Resources"
 s.resources = 'SmartDeviceLink/Assets/**/*.{storyboard,strings,png}'
 
 s.default_subspec = 'Default'
