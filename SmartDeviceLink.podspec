@@ -10,7 +10,7 @@ s.platform     = :ios, "8.0"
 s.dependency     'BiSON', '~> 1.1.1'
 s.source       = { :git => "https://github.com/smartdevicelink/sdl_ios.git", :tag => s.version.to_s }
 s.requires_arc = true
-s.resources = 'SmartDeviceLink/Assets/**/*'
+s.resources = 'SmartDeviceLink/Assets/**/*.{storyboard,png,lproj}'
 
 s.default_subspec = 'Default'
 
