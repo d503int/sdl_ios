@@ -5,12 +5,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SDLTCPTransport : SDLAbstractTransport {
-    _Nullable CFSocketRef socket;
-}
+@interface SDLTCPTransport : SDLAbstractTransport <NSStreamDelegate>
 
 @property (strong, nonatomic) NSString *hostName;
 @property (strong, nonatomic) NSString *portNumber;
+@property (nonatomic, assign) NSUInteger receiveBufferSize;
 
 @end
 
