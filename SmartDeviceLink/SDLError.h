@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NSString SDLErrorDomain;
 extern SDLErrorDomain *const SDLErrorDomainLifecycleManager;
 extern SDLErrorDomain *const SDLErrorDomainFileManager;
+extern SDLErrorDomain *const SDLErrorDomainTransport;
 
 @interface NSError (SDLErrors)
 
@@ -49,6 +50,13 @@ extern SDLErrorDomain *const SDLErrorDomainFileManager;
 #pragma mark Show Managers
 + (NSError *)sdl_softButtonManager_pendingUpdateSuperseded;
 + (NSError *)sdl_textAndGraphicManager_pendingUpdateSuperseded;
+
+#pragma mark Transport
+
++ (NSError *)sdl_transport_OthersError;
++ (NSError *)sdl_transport_connectionRefusedError;
++ (NSError *)sdl_transport_connectionTimedOutError;
++ (NSError *)sdl_transport_networkDownError;
 
 @end
 

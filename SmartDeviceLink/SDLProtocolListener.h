@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)onProtocolOpened;
 - (void)onProtocolClosed;
 - (void)onError:(NSString *)info exception:(NSException *)e;
+- (void)onTransportError:(NSError *)error;
 
 @end
 
