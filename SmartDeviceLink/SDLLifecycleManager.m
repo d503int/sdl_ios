@@ -48,6 +48,7 @@
 #import "SDLStateMachine.h"
 #import "SDLStreamingMediaConfiguration.h"
 #import "SDLStreamingMediaManager.h"
+#import "SDLSystemCapabilityManager.h"
 #import "SDLUnregisterAppInterface.h"
 
 
@@ -122,6 +123,7 @@ SDLLifecycleState *const SDLLifecycleStateReady = @"Ready";
     _permissionManager = [[SDLPermissionManager alloc] init];
     _lockScreenManager = [[SDLLockScreenManager alloc] initWithConfiguration:_configuration.lockScreenConfig notificationDispatcher:_notificationDispatcher presenter:[[SDLLockScreenPresenter alloc] init]];
     _screenManager = [[SDLScreenManager alloc] initWithConnectionManager:self fileManager:_fileManager];
+    _systemCapabilityManager = [[SDLSystemCapabilityManager alloc] initWithConnectionManager:self];
     
     if ([configuration.lifecycleConfig.appType isEqualToEnum:SDLAppHMITypeNavigation] ||
         [configuration.lifecycleConfig.appType isEqualToEnum:SDLAppHMITypeProjection] ||
@@ -227,6 +229,7 @@ SDLLifecycleState *const SDLLifecycleStateReady = @"Ready";
     [self.permissionManager stop];
     [self.lockScreenManager stop];
     [self.streamManager stop];
+    [self.systemCapabilityManager stop];
     [self.responseDispatcher clear];
 
     [self.rpcOperationQueue cancelAllOperations];
@@ -361,7 +364,10 @@ SDLLifecycleState *const SDLLifecycleStateReady = @"Ready";
 
     // When done, we want to transition, even if there were errors. They may be expected, e.g. on head units that do not support files.
     dispatch_group_notify(managerGroup, self.lifecycleQueue, ^{
-        [self.lifecycleStateMachine transitionToState:SDLLifecycleStateSettingUpAppIcon];
+        // We could have been shut down while waiting for the completion of starting file manager and permission manager.
+        if (self.lifecycleState == SDLLifecycleStateSettingUpManagers) {
+            [self.lifecycleStateMachine transitionToState:SDLLifecycleStateSettingUpAppIcon];
+        }
     });
 }
 
@@ -614,16 +620,19 @@ SDLLifecycleState *const SDLLifecycleStateReady = @"Ready";
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (![oldHMILevel isEqualToEnum:self.hmiLevel]) {
+        if (![oldHMILevel isEqualToEnum:self.hmiLevel]
+            && !(oldHMILevel == nil && self.hmiLevel == nil)) {
             [self.delegate hmiLevel:oldHMILevel didChangeToLevel:self.hmiLevel];
         }
 
         if (![oldStreamingState isEqualToEnum:self.audioStreamingState]
+            && !(oldStreamingState == nil && self.audioStreamingState == nil)
             && [self.delegate respondsToSelector:@selector(audioStreamingState:didChangeToState:)]) {
             [self.delegate audioStreamingState:oldStreamingState didChangeToState:self.audioStreamingState];
         }
 
         if (![oldSystemContext isEqualToEnum:self.systemContext]
+            && !(oldSystemContext == nil && self.systemContext == nil)
             && [self.delegate respondsToSelector:@selector(systemContext:didChangeToContext:)]) {
             [self.delegate systemContext:oldSystemContext didChangeToContext:self.systemContext];
         }
